@@ -133,7 +133,7 @@ void gaussian_blur(const unsigned char* const inputChannel,
   // to sequential reference solution for the exact clamping semantics you should follow.
   
   const int2 thread_2D_pos = make_int2(blockIdx.x * blockDim.x + threadIdx.x,
-                                      threadIdx.y * blockDim.y + threadIdx.y);
+                                      blockIdx.y * blockDim.y + threadIdx.y);
   
   if (thread_2D_pos.x >= numCols || thread_2D_pos.y >= numRows) return;
 
@@ -258,7 +258,7 @@ void your_gaussian_blur(const uchar4 * const h_inputImageRGBA, uchar4 * const d_
   const dim3 gridSize(ceil(1.0f * numCols / blockSizeX), ceil(1.0f * numRows / blockSizeY));
 
   // Launch a kernel for separating the RGBA image into different color channels
-  separateChannels<<<gridSize, blockSize>>>(d_inputImageRGBA, numRows, numCols, d_redBlurred, d_greenBlurred, d_blueBlurred);
+  separateChannels<<<gridSize, blockSize>>>(d_inputImageRGBA, numRows, numCols, d_red, d_green, d_blue);
 
   // Call cudaDeviceSynchronize(), then call checkCudaErrors() immediately after
   // launching your kernel to make sure that you didn't make any mistakes.
