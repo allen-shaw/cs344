@@ -7,7 +7,7 @@
 
 # collect source files
 cmake_minimum_required(VERSION 3.20)
-project(ProblemSet1 LANGUAGES CUDA CXX)
+project(ProblemSet2 LANGUAGES CUDA CXX)
 
 find_package(OpenCV REQUIRED)
 
